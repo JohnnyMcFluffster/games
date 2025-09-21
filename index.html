@@ -1,55 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Game Hub</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f3f3;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #4285F4;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.05);
-    }
-    a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="utf-8" />
+<title>Game Hub - Embedded</title>
+<style>
+  body{font-family:Arial, sans-serif;margin:0;background:#f3f3f3}
+  header{background:#4285F4;color:#fff;padding:16px;text-align:center;font-size:22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;padding:20px}
+  .card{background:#fff;border-radius:10px;padding:20px;text-align:center;box-shadow:0 4px 8px rgba(0,0,0,0.08);cursor:pointer}
+  /* Modal */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:50}
+  .modal.open{display:flex}
+  .modal-content{width:90%;max-width:900px;height:80vh;background:#000;border-radius:8px;overflow:hidden;position:relative;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+  iframe{width:100%;height:100%;border:0;background:#000}
+  .close-btn{position:absolute;top:8px;right:8px;background:#fff;border:0;padding:6px 10px;border-radius:6px;cursor:pointer}
+</style>
 </head>
 <body>
-  <header>🎮 My Game Hub</header>
+  <header>🎮 My Game Hub (Embedded)</header>
   <div class="grid">
-    <div class="card">
-      <a href="snake.html">🐍 Play Snake</a>
-    </div>
-    <div class="card">
-      <a href="tic-tac-toe.html">❌⭕ Play Tic-Tac-Toe</a>
+    <div class="card" onclick="openGame('snake.html')">🐍 Play Snake</div>
+    <div class="card" onclick="openGame('tic-tac-toe.html')">❌⭕ Play Tic-Tac-Toe</div>
+  </div>
+
+  <div id="modal" class="modal" onclick="if(event.target===this) closeGame()">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeGame()">Close ✕</button>
+      <iframe id="gameFrame" src=""></iframe>
     </div>
   </div>
+
+<script>
+  function openGame(path){
+    document.getElementById('gameFrame').src = path;
+    document.getElementById('modal').classList.add('open');
+  }
+  function closeGame(){
+    document.getElementById('gameFrame').src = ''; // stops audio/timers
+    document.getElementById('modal').classList.remove('open');
+  }
+</script>
 </body>
 </html>
+
